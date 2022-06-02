@@ -1,0 +1,85 @@
+.block1{
+  width: 50%;
+  height: 1000px;
+  float: left;
+  background: ;
+ }
+
+ .block2{
+  width: 50%;
+  height: 1000px;
+  background: pink;
+  display: inline-block;
+  float: left;
+
+ }
+
+ #forma1{
+    width: 500px; /* Can be in percentage also. */
+    height: 700px;
+    background: pink;
+    margin: 0 auto;
+    padding: 10px;
+    position: relative;
+    top: 100px;
+
+ }
+
+ #forma2{
+ 	width: 500px; /* Can be in percentage also. */
+    height: 250px;
+    background: white;
+    margin: 0 auto;
+    padding: 10px;
+    position: relative;
+    top: 300px;
+ }
+
+ .labelStyle {
+	display: flex;
+	flex-direction: column;
+	margin-bottom: 15px;
+	font-size: 25pt;
+
+}
+.textStyle {
+	color: black;
+
+}
+.textStyle{
+	width: 225px;
+	margin-top: 5px;
+	margin-right: 15px;
+	margin-bottom: 15px;
+}
+.name{
+	text-align: center;
+	font-size: 25px;
+	font-family: monospace;
+	margin-bottom: 0;
+	margin-top: 50px;
+}
+.title{
+	text-align: left;
+	font-size: 20px;
+	font-family: 'TimesNewRoman';
+	margin-bottom: 0;
+}
+.place{
+	text-align: right;
+	margin-top: 50px;
+	font-size: 20px;
+	margin-bottom: 5px;
+	font-family: 'TimesNewRoman';
+}
+.time{
+	text-align: right;
+	margin-top: 30px;
+	font-size: 20px;
+	margin-bottom: 5px;
+	font-family: 'TimesNewRoman';
+}
+
+.inputStyle{
+	width: 350px;
+}

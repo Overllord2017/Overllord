@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Проверочная работа</title>
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="style.css">
+</head>
+<body>
+	<div class='block1'>
+		<div id='forma1'>
+			<label class="labelStyle">
+					<p class="textStyle">Название Мероприятия</p>
+					<input type="text" class="inputStyle" id="titleBlock1" onchange = titleProject(this)>
+			</label>
+
+			<label class="labelStyle">
+					<p class="textStyle">ФИО</p>
+					<input type="text" class="inputStyle" id="nameBlock1" onchange = nameProject(this)>
+			</label>
+
+			<label class="labelStyle">
+					<p class="textStyle">Место мероприятия</p>
+					<input type="text" class="inputStyle" id="placeBlock1" onchange = placeProject(this)>
+			</label>
+
+			<label class="labelStyle">
+					<p class="textStyle">Назначенное время</p>
+					<input type="text" class="inputStyle" id="timeBlock1" onchange = timeProject(this)>
+			</label>
+
+			<div class="form-group">
+				<div class="input-name">Цвет визитки</div>
+				<input type="text" class="cardColor" name="card_color">
+			</div>
+			<div class="form-group">
+				<div class="input-name">Цвет текста</div>
+				<input type="text" class="textColor" name="text_color">
+			</div>
+
+		</div>
+	</div>
+	<div class='block2'>
+		<div id="forma2">
+			<div class="title" id="titleBlock2">Название Мероприятия</div>
+			<div class="name" id="nameBlock2">ФИО</div>
+			<div class="place" id="placeBlock2">Место мероприятия</div>
+			<div class="time" id="timeBlock2">Назначенное время</div>
+		</div>
+	</div>
+<script src="script.js"></script>
+</body>
+</html>
