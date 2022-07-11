@@ -1,0 +1,53 @@
+*{
+	margin: 0;
+	padding: 0;
+}
+
+.conteiner {
+	display: flex;
+	margin: 0;
+    padding: 0;
+    position: absolute;
+    background-color: #efefef;
+	
+}
+.size_block{
+	height: 330px;
+	width: 250px;
+	margin: 10px;
+    background-color: white;
+}
+
+.green, .blue, .yellow{
+	height: 250px;
+	width: 250px;
+	text-align: center;
+	font-size: 215px;
+	color: white;
+}
+
+.green{
+	background-color: #21a05d;
+}
+
+.blue{
+	background-color: #65c3dd;
+	color: black;
+	
+}
+
+.yellow{
+	background-color: #efbd3e;
+}
+img{
+	position: absolute;
+	bottom: 65px;
+	bottom: 73px;
+
+}
+
+.text{
+	font-size: 30px;
+	text-align: left;
+	padding: 20px;
+}
