@@ -1,0 +1,24 @@
+.product__img__1{
+    position: relative;
+}
+.product__img__1 img{
+    vertical-align: bottom;
+}
+.product__img__1 .zoom-selector{
+    position: absolute;
+    background-image: url("images/selector.png");
+    background-repeat: repeat;
+    display: none;
+    cursor: crosshair;
+}
+.product__img__1 .viewer-box{
+    position: absolute;
+    border: 1px solid rgb(239,237,240);
+    display: none;
+    overflow: hidden;
+}
+.product__img__1 .viewer-box>img{
+    position: absolute;
+    left: 0;
+    top: 0;
+}
