@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Июл 22 2022 г., 17:00
+-- Время создания: Июл 23 2022 г., 07:04
 -- Версия сервера: 8.0.24
 -- Версия PHP: 7.4.21
 
@@ -24,22 +24,41 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Структура таблицы `extra_images`
+--
+
+CREATE TABLE `extra_images` (
+  `id` int NOT NULL,
+  `extra_images` varchar(45) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+
+--
+-- Дамп данных таблицы `extra_images`
+--
+
+INSERT INTO `extra_images` (`id`, `extra_images`) VALUES
+(1, 'images_11.png'),
+(2, 'images_22.png');
+
+-- --------------------------------------------------------
+
+--
 -- Структура таблицы `images`
 --
 
 CREATE TABLE `images` (
   `id_images` int NOT NULL,
   `image` varchar(45) DEFAULT NULL,
-  `extra_images` varchar(45) DEFAULT NULL
+  `alt` varchar(45) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 --
 -- Дамп данных таблицы `images`
 --
 
-INSERT INTO `images` (`id_images`, `image`, `extra_images`) VALUES
-(1, 'images_1.png', '\'images_11.png\', \'images_111.png\''),
-(2, 'images_2.png', '\'images_22.png\', \'images_222.png\'');
+INSERT INTO `images` (`id_images`, `image`, `alt`) VALUES
+(1, 'images_1.png', NULL),
+(2, 'images_2.png', NULL);
 
 -- --------------------------------------------------------
 
@@ -51,7 +70,6 @@ CREATE TABLE `products` (
   `id_products` int NOT NULL,
   `name` text CHARACTER SET utf8 COLLATE utf8_general_ci,
   `description` text CHARACTER SET utf8 COLLATE utf8_general_ci,
-  `section_list` varchar(45) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   `price` varchar(45) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   `price_without_discount` varchar(45) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   `promocode_price` varchar(45) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
@@ -63,11 +81,11 @@ CREATE TABLE `products` (
 -- Дамп данных таблицы `products`
 --
 
-INSERT INTO `products` (`id_products`, `name`, `description`, `section_list`, `price`, `price_without_discount`, `promocode_price`, `count_products`, `articul`) VALUES
-(1, 'РУБАШКА MEDICINE', 'Рубашка Medicine выполнена из вискозной ткани с клетчатым узором. Детали: прямой крой; отложной воротник; планка из маджеты на пуговицах; карман на груди.', '\'Рубашки\'. \'Летняя одежда\'', '2499.00', '2699.00', '2227.00', 5, 1),
-(2, 'Худи Medicine Худи', 'Толстовка удлинённая и прежде всего привлекает своей длиной по спинке (до 78 см), объёмными рукавами и манжетом с прорезью для большого пальца. ', '\'Худи\', \'Летняя одежда\'', '2900.00', '3100.00', '2600.00', 21, 2),
-(3, 'Худи COMFYCLTH', 'Худи объемное с накладным карманом и двойным капюшоном. Комфортный оверсайз со спущенным плечом. Начёс в процессе носки может скатываться. Универсальный крой позволяет сочетать и носить данное изделие с абсолютно любыми брюками', 'Худи', '3500.00', '3850.00', '3400.00', 10, 2),
-(4, 'Шорты спортивные Top Top', 'Данный товар является частью проекта Lamoda planet - специального раздела нашего каталога, где мы собрали экологичные, этичные, инклюзивные и благотворительные товары.', 'Летняя одежда', '4200.00', '4500.00', '3900.00', 7, 2);
+INSERT INTO `products` (`id_products`, `name`, `description`, `price`, `price_without_discount`, `promocode_price`, `count_products`, `articul`) VALUES
+(1, 'РУБАШКА MEDICINE', 'Рубашка Medicine выполнена из вискозной ткани с клетчатым узором. Детали: прямой крой; отложной воротник; планка из маджеты на пуговицах; карман на груди.', '2499.00', '2699.00', '2227.00', 5, 1),
+(2, 'Худи Medicine Худи', 'Толстовка удлинённая и прежде всего привлекает своей длиной по спинке (до 78 см), объёмными рукавами и манжетом с прорезью для большого пальца. ', '2900.00', '3100.00', '2600.00', 21, 2),
+(3, 'Худи COMFYCLTH', 'Худи объемное с накладным карманом и двойным капюшоном. Комфортный оверсайз со спущенным плечом. Начёс в процессе носки может скатываться. Универсальный крой позволяет сочетать и носить данное изделие с абсолютно любыми брюками', '3500.00', '3850.00', '3400.00', 10, 2),
+(4, 'Шорты спортивные Top Top', 'Данный товар является частью проекта Lamoda planet - специального раздела нашего каталога, где мы собрали экологичные, этичные, инклюзивные и благотворительные товары.', '4200.00', '4500.00', '3900.00', NULL, 2);
 
 -- --------------------------------------------------------
 
@@ -86,7 +104,7 @@ CREATE TABLE `product_pictures` (
 
 INSERT INTO `product_pictures` (`products_id_products`, `images_id_images`) VALUES
 (1, 1),
-(2, 1);
+(2, 2);
 
 -- --------------------------------------------------------
 
@@ -96,6 +114,7 @@ INSERT INTO `product_pictures` (`products_id_products`, `images_id_images`) VALU
 
 CREATE TABLE `sections` (
   `id_sections` int NOT NULL,
+  `main_section_id` int DEFAULT NULL,
   `name` varchar(45) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   `description` text CHARACTER SET utf8 COLLATE utf8_general_ci
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
@@ -104,10 +123,11 @@ CREATE TABLE `sections` (
 -- Дамп данных таблицы `sections`
 --
 
-INSERT INTO `sections` (`id_sections`, `name`, `description`) VALUES
-(1, 'Летняя одежда', 'Яркая одежда на лето, рубашки, футболки, шорты и тд.'),
-(2, 'Рубашки', 'Рубашки буржуйских и отечественных брендов'),
-(3, 'Худи', 'Очень теплые худи, мягкие и очень удобные.');
+INSERT INTO `sections` (`id_sections`, `main_section_id`, `name`, `description`) VALUES
+(1, NULL, 'Летняя одежда', 'Яркая одежда на лето, рубашки, футболки, шорты и тд.'),
+(2, NULL, 'Рубашки', 'Рубашки буржуйских и отечественных брендов'),
+(3, 1, 'Худи', 'Очень теплые худи, мягкие и очень удобные.'),
+(4, NULL, 'Зимняя одежда', 'Теплая одежда для холодной зимы');
 
 -- --------------------------------------------------------
 
@@ -135,6 +155,12 @@ INSERT INTO `sections_has_products` (`sections_id_sections`, `products_id_produc
 --
 
 --
+-- Индексы таблицы `extra_images`
+--
+ALTER TABLE `extra_images`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Индексы таблицы `images`
 --
 ALTER TABLE `images`
@@ -158,7 +184,9 @@ ALTER TABLE `product_pictures`
 -- Индексы таблицы `sections`
 --
 ALTER TABLE `sections`
-  ADD PRIMARY KEY (`id_sections`);
+  ADD PRIMARY KEY (`id_sections`),
+  ADD UNIQUE KEY `name` (`name`),
+  ADD UNIQUE KEY `main_section_id` (`main_section_id`) USING BTREE;
 
 --
 -- Индексы таблицы `sections_has_products`
@@ -171,6 +199,12 @@ ALTER TABLE `sections_has_products`
 --
 -- AUTO_INCREMENT для сохранённых таблиц
 --
+
+--
+-- AUTO_INCREMENT для таблицы `extra_images`
+--
+ALTER TABLE `extra_images`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT для таблицы `images`
@@ -188,11 +222,17 @@ ALTER TABLE `products`
 -- AUTO_INCREMENT для таблицы `sections`
 --
 ALTER TABLE `sections`
-  MODIFY `id_sections` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_sections` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- Ограничения внешнего ключа сохраненных таблиц
 --
+
+--
+-- Ограничения внешнего ключа таблицы `extra_images`
+--
+ALTER TABLE `extra_images`
+  ADD CONSTRAINT `extra_images_ibfk_1` FOREIGN KEY (`id`) REFERENCES `products` (`id_products`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 
 --
 -- Ограничения внешнего ключа таблицы `product_pictures`
@@ -200,6 +240,12 @@ ALTER TABLE `sections`
 ALTER TABLE `product_pictures`
   ADD CONSTRAINT `fk_products_has_images_images1` FOREIGN KEY (`images_id_images`) REFERENCES `images` (`id_images`),
   ADD CONSTRAINT `fk_products_has_images_products1` FOREIGN KEY (`products_id_products`) REFERENCES `products` (`id_products`);
+
+--
+-- Ограничения внешнего ключа таблицы `sections`
+--
+ALTER TABLE `sections`
+  ADD CONSTRAINT `section__parent__fk` FOREIGN KEY (`main_section_id`) REFERENCES `sections` (`id_sections`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 
 --
 -- Ограничения внешнего ключа таблицы `sections_has_products`
@@ -212,3 +258,39 @@ COMMIT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*
+1.
+SELECT s.id_sections,
+p.count_products,
+       s.name,
+       sum(p.count_products) AS count_products
+  FROM products p
+  JOIN sections s
+    ON s.id_sections = p.id_products
+ GROUP BY s.id_sections, s.name
+ ORDER BY s.id_sections
+
+
+7. и 4.
+SELECT s.id_sections,
+p.count_products,
+       s.name
+  FROM products p
+  JOIN sections s
+    ON s.id_sections = p.id_products
+ WHERE p.count_products > 0
+ GROUP BY s.id_sections, s.name
+ ORDER BY p.count_products DESC
+
+3.
+SELECT s.id_sections,
+p.count_products,
+       s.name
+  FROM products p
+  JOIN sections s
+    ON s.id_sections = p.id_products
+ WHERE p.count_products > 0
+ GROUP BY s.id_sections, s.name
+ ORDER BY p.count_products DESC
+ 
+ */
