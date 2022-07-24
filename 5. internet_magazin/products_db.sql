@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Июл 23 2022 г., 11:13
+-- Время создания: Июл 24 2022 г., 08:43
 -- Версия сервера: 8.0.24
 -- Версия PHP: 7.4.21
 
@@ -39,7 +39,11 @@ CREATE TABLE `images` (
 
 INSERT INTO `images` (`id_images`, `image`, `alt`) VALUES
 (1, 'images_1.png', NULL),
-(2, 'images_2.png', NULL);
+(2, 'images_2.png', NULL),
+(3, 'images_3.png', NULL),
+(4, 'images_4.png', NULL),
+(5, 'images_5.png', NULL),
+(6, 'images_6.png', NULL);
 
 -- --------------------------------------------------------
 
@@ -49,6 +53,7 @@ INSERT INTO `images` (`id_images`, `image`, `alt`) VALUES
 
 CREATE TABLE `products` (
   `id_products` int NOT NULL,
+  `main_sections_id` int DEFAULT NULL,
   `name` text CHARACTER SET utf8 COLLATE utf8_general_ci,
   `price` decimal(20,2) NOT NULL,
   `price_without_discount` decimal(20,2) NOT NULL,
@@ -62,11 +67,11 @@ CREATE TABLE `products` (
 -- Дамп данных таблицы `products`
 --
 
-INSERT INTO `products` (`id_products`, `name`, `price`, `price_without_discount`, `promocode_price`, `description`, `count_products`, `articul`) VALUES
-(1, 'РУБАШКА MEDICINE', '2600.00', '2800.00', '2500.00', 'Рубашка Medicine выполнена из вискозной ткани с клетчатым узором. Детали: прямой крой; отложной воротник; планка из маджеты на пуговицах; карман на груди.', 5, 1),
-(2, 'Худи Medicine Худи', '3500.00', '4000.00', '3400.00', 'Толстовка удлинённая и прежде всего привлекает своей длиной по спинке (до 78 см), объёмными рукавами и манжетом с прорезью для большого пальца. ', 21, 2),
-(3, 'Худи COMFYCLTH', '3400.00', '3750.00', '2000.00', 'Худи объемное с накладным карманом и двойным капюшоном. Комфортный оверсайз со спущенным плечом. Начёс в процессе носки может скатываться. Универсальный крой позволяет сочетать и носить данное изделие с абсолютно любыми брюками', 10, 2),
-(4, 'Шорты спортивные Top Top', '2500.00', '2800.00', '2300.00', 'Данный товар является частью проекта Lamoda planet - специального раздела нашего каталога, где мы собрали экологичные, этичные, инклюзивные и благотворительные товары.', NULL, 2);
+INSERT INTO `products` (`id_products`, `main_sections_id`, `name`, `price`, `price_without_discount`, `promocode_price`, `description`, `count_products`, `articul`) VALUES
+(1, 1, 'РУБАШКА MEDICINE', '2600.00', '2800.00', '2500.00', 'Рубашка Medicine выполнена из вискозной ткани с клетчатым узором. Детали: прямой крой; отложной воротник; планка из маджеты на пуговицах; карман на груди.', 5, 1),
+(2, 1, 'Худи Medicine Худи', '3500.00', '4000.00', '3400.00', 'Толстовка удлинённая и прежде всего привлекает своей длиной по спинке (до 78 см), объёмными рукавами и манжетом с прорезью для большого пальца. ', 21, 2),
+(3, 3, 'Худи COMFYCLTH', '3400.00', '3750.00', '2000.00', 'Худи объемное с накладным карманом и двойным капюшоном. Комфортный оверсайз со спущенным плечом. Начёс в процессе носки может скатываться. Универсальный крой позволяет сочетать и носить данное изделие с абсолютно любыми брюками', 10, 2),
+(4, 1, 'Шорты спортивные Top Top', '2500.00', '2800.00', '2300.00', 'Данный товар является частью проекта Lamoda planet - специального раздела нашего каталога, где мы собрали экологичные, этичные, инклюзивные и благотворительные товары.', NULL, 2);
 
 -- --------------------------------------------------------
 
@@ -85,7 +90,8 @@ CREATE TABLE `product_extra_picthers` (
 
 INSERT INTO `product_extra_picthers` (`id_product`, `id_images`) VALUES
 (1, 1),
-(1, 2);
+(1, 2),
+(2, 2);
 
 -- --------------------------------------------------------
 
@@ -104,7 +110,8 @@ CREATE TABLE `product_pictures` (
 
 INSERT INTO `product_pictures` (`products_id_products`, `images_id_images`) VALUES
 (1, 1),
-(2, 2);
+(3, 2),
+(2, 3);
 
 -- --------------------------------------------------------
 
@@ -164,7 +171,8 @@ ALTER TABLE `images`
 -- Индексы таблицы `products`
 --
 ALTER TABLE `products`
-  ADD PRIMARY KEY (`id_products`);
+  ADD PRIMARY KEY (`id_products`),
+  ADD KEY `main_sections_id` (`main_sections_id`);
 
 --
 -- Индексы таблицы `product_extra_picthers`
@@ -178,6 +186,7 @@ ALTER TABLE `product_extra_picthers`
 --
 ALTER TABLE `product_pictures`
   ADD PRIMARY KEY (`products_id_products`,`images_id_images`),
+  ADD UNIQUE KEY `images_id_images` (`images_id_images`),
   ADD KEY `fk_products_has_images_images1_idx` (`images_id_images`),
   ADD KEY `fk_products_has_images_products1_idx` (`products_id_products`);
 
@@ -204,7 +213,7 @@ ALTER TABLE `sections_has_products`
 -- AUTO_INCREMENT для таблицы `images`
 --
 ALTER TABLE `images`
-  MODIFY `id_images` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_images` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT для таблицы `products`
@@ -223,6 +232,12 @@ ALTER TABLE `sections`
 --
 
 --
+-- Ограничения внешнего ключа таблицы `products`
+--
+ALTER TABLE `products`
+  ADD CONSTRAINT `products_ibfk_1` FOREIGN KEY (`main_sections_id`) REFERENCES `sections` (`id_sections`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+--
 -- Ограничения внешнего ключа таблицы `product_extra_picthers`
 --
 ALTER TABLE `product_extra_picthers`
@@ -233,8 +248,8 @@ ALTER TABLE `product_extra_picthers`
 -- Ограничения внешнего ключа таблицы `product_pictures`
 --
 ALTER TABLE `product_pictures`
-  ADD CONSTRAINT `fk_products_has_images_images1` FOREIGN KEY (`images_id_images`) REFERENCES `images` (`id_images`),
-  ADD CONSTRAINT `fk_products_has_images_products1` FOREIGN KEY (`products_id_products`) REFERENCES `products` (`id_products`);
+  ADD CONSTRAINT `fk_products_has_images_products1` FOREIGN KEY (`products_id_products`) REFERENCES `products` (`id_products`),
+  ADD CONSTRAINT `product_pictures_ibfk_1` FOREIGN KEY (`images_id_images`) REFERENCES `images` (`id_images`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 
 --
 -- Ограничения внешнего ключа таблицы `sections_has_products`
